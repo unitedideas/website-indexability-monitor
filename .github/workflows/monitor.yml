@@ -1,0 +1,32 @@
+name: Monitor production indexability
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  indexability:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Check configured website
+        if: ${{ vars.MONITORED_WEBSITE != '' }}
+        uses: unitedideas/actablesite-check@v1
+        with:
+          website: ${{ vars.MONITORED_WEBSITE }}
+          check-homepage-indexability: "true"
+          fail-on-noindex: "true"
+          fail-on-blocked: "false"
+          check-edge-responses: "true"
+          fail-on-restricted: "false"
+
+      - name: Explain missing configuration
+        if: ${{ vars.MONITORED_WEBSITE == '' }}
+        shell: bash
+        run: |
+          echo "::error::Set the MONITORED_WEBSITE repository variable to a public hostname or URL."
+          exit 1
