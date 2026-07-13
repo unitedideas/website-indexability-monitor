@@ -1,5 +1,7 @@
 # Free website indexability monitor
 
+[![Monitor production indexability](https://github.com/unitedideas/website-indexability-monitor/actions/workflows/monitor.yml/badge.svg)](https://github.com/unitedideas/website-indexability-monitor/actions/workflows/monitor.yml)
+
 Catch an accidental homepage `noindex` in a scheduled GitHub Action. The same run reports HTTP status, robots meta, `X-Robots-Tag`, canonical URL, robots.txt policy for eight named AI crawler tokens, and optional synthetic crawler responses.
 
 No account, API key, package install, or hosted agent is required.
