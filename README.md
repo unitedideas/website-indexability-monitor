@@ -34,7 +34,7 @@ GitHub schedules can be delayed during busy periods and may be disabled after pr
 
 ## Need a managed check?
 
-[Crawler Watch](https://actablesite.com/crawler-watch?utm_source=github&utm_medium=template&utm_campaign=website-indexability-monitor) checks one public site every 15 minutes, confirms a changed state twice, and emails a dedicated alert. It also watches `sitemap.xml` and `llms.txt`. The plan is $9 per month.
+[Crawler Watch](https://actablesite.com/crawler-watch?utm_source=github&utm_medium=template&utm_campaign=crawler-watch) checks one public site every 15 minutes, confirms a changed state twice, and emails a dedicated alert. It also watches `sitemap.xml` and `llms.txt`. The plan is $9 per month.
 
 ## Source
 
