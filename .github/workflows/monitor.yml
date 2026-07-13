@@ -13,12 +13,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
+      - name: Check out the indexability gate
+        uses: actions/checkout@v4
+
       - name: Check configured website
         if: ${{ vars.MONITORED_WEBSITE != '' }}
-        uses: unitedideas/actablesite-check@v1
+        uses: ./
         with:
           website: ${{ vars.MONITORED_WEBSITE }}
-          check-homepage-indexability: "true"
           fail-on-noindex: "true"
           fail-on-blocked: "false"
           check-edge-responses: "true"

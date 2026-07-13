@@ -1,0 +1,55 @@
+name: Website Indexability Gate
+description: Fail a workflow on homepage noindex and report status, canonical, robots.txt, and optional AI crawler edge responses.
+author: ActableSite
+
+inputs:
+  website:
+    description: Public website hostname or URL to check.
+    required: true
+  fail-on-noindex:
+    description: Fail when robots meta or X-Robots-Tag contains noindex.
+    required: false
+    default: "true"
+  fail-on-blocked:
+    description: Fail when one or more named AI crawler tokens are blocked in robots.txt.
+    required: false
+    default: "false"
+  check-edge-responses:
+    description: Send synthetic OAI-SearchBot, Claude-SearchBot, and PerplexityBot requests to the public homepage.
+    required: false
+    default: "false"
+  fail-on-restricted:
+    description: Fail when an enabled synthetic response returns a restricted status such as 401, 403, or 429.
+    required: false
+    default: "false"
+
+outputs:
+  result:
+    description: Compact JSON result for the complete robots.txt policy check.
+    value: ${{ steps.check.outputs.result }}
+  indexability-result:
+    description: Compact JSON result for homepage status, directives, and canonical.
+    value: ${{ steps.check.outputs.indexability-result }}
+  noindex-found:
+    description: Whether the homepage response contained noindex.
+    value: ${{ steps.check.outputs.noindex-found }}
+  edge-result:
+    description: Compact JSON result for optional synthetic crawler responses, or null when disabled.
+    value: ${{ steps.check.outputs.edge-result }}
+
+runs:
+  using: composite
+  steps:
+    - id: check
+      uses: unitedideas/actablesite-check@v1
+      with:
+        website: ${{ inputs.website }}
+        check-homepage-indexability: "true"
+        fail-on-noindex: ${{ inputs.fail-on-noindex }}
+        fail-on-blocked: ${{ inputs.fail-on-blocked }}
+        check-edge-responses: ${{ inputs.check-edge-responses }}
+        fail-on-restricted: ${{ inputs.fail-on-restricted }}
+
+branding:
+  icon: search
+  color: blue
